@@ -22,6 +22,12 @@ export const getUsuarios = async (req, res) => {
 export const getUsuariosPorId = async (req, res) => {
     try {
         let { id_usuario } = req.params;
+        
+        if (!id_usuario) {
+            return res.status(400).json({
+                error: "Se requiere un id para obtener un producto"
+            });
+        }
 
         let sql = `SELECT * FROM usuarios WHERE id_usuario = ? `;
         let [result] = await connection.query(sql, [id_usuario]);
@@ -48,7 +54,7 @@ export const crearUsuario = async (req, res) => {
 
     if (!nombre || !apellido || !email || !password) {
         res.status(400).json({
-            error: "Faltan campos requeridos"
+            error: "Faltan campos requeridos (nombre, apellido, email, password)"
         });
     }
 
@@ -74,7 +80,7 @@ export const actualizarUsuario = async (req, res) => {
 
     if (!nombre || !apellido || !email || !password) {
         res.status(400).json({
-            error: "Faltan campos requeridos"
+            error: "Faltan campos requeridos (nombre, apellido, email, password)"
         });
     }
 
@@ -104,7 +110,7 @@ export const actualizarEstadoUsuario = async (req, res) => {
 
         if (isNaN(idUsuario) || isNaN(idEstado)) {
             return res.status(400).json({
-                message: "Parametros invalidos, id_usuario y id_estado deben ser nuemros"
+                error: "Parametros invalidos, id_usuario y id_estado deben ser nuemros"
             });
         }
 
@@ -115,18 +121,18 @@ export const actualizarEstadoUsuario = async (req, res) => {
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                message: `No se encontro un producto con id: ${idUsuario}`
+                message: `No se encontro un usuario con id: ${idUsuario}`
             });
         }
 
         return res.status(200).json({
-            message: `Usuario con id ${idUsuario} se le actualizo el estado correctameten`
+            message: `Usuario con id ${idUsuario} se le actualizo el estado correctamente`
         });
         
     } catch (error) {
-        console.error("Error a dar de baja al usuario: ", error);
+        console.error("Error al actualizar el usuario: ", error);
         res.status(500).json({
-            message: `Error al intentar dar de baja al usuario:`,
+            message: `Error al actualizar el usuario`,
             payload: error.message
         });
     }
@@ -136,18 +142,18 @@ export const eliminarUsuario = async (req, res) => {
     let { id_usuario } = req.params;
 
     if (!id_usuario) {
-        return res.status(400), josn({
-            message: "Se requiere un id para eliminar un producto"
+        return res.status(400). josn({
+            error: "Se requiere un id para eliminar un usuario"
         })
     }
 
     try {
-        let sql = `DELETE FROM usuarios WHERE id = ? `
+        let sql = `DELETE FROM usuarios WHERE id_usuario = ? `
         let [result] = await connection.query(sql, [id]);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                message: `no se encontro un producto con el id: ${id_usuario}`
+                message: `no se encontro un usuario con el id: ${id_usuario}`
             });
         }
 
@@ -157,7 +163,7 @@ export const eliminarUsuario = async (req, res) => {
     } catch (error) {
         console.error("");
         res.status(500).josn({
-            message: "Error al intentar eliminar un usuario con",
+            message: "Error al eliminar un usuario",
             payload: error.message
         })
     }
