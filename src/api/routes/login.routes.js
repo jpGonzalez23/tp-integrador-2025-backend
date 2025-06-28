@@ -4,7 +4,8 @@ import {
     getUsuarios, 
     getUsuariosPorId, 
     actualizarUsuario, 
-    darDeBajaUsuario 
+    actualizarEstadoUsuario, 
+    eliminarUsuario
 } from "../controllers/login.controllers.js";
 
 const router = Router();
@@ -12,7 +13,8 @@ const router = Router();
 router.get('/', getUsuarios);
 router.get('/:id_usuario', getUsuariosPorId);
 router.post('/', crearUsuario);
-router.put('/id_usuario', actualizarUsuario);
-router.delete('/:id_usaurio/:id_estado', darDeBajaUsuario);
+router.put('/:id_usuario', actualizarUsuario);
+router.put('/:id_usuario/:id_estado', actualizarEstadoUsuario);
+router.delete('/:id', eliminarUsuario);
 
 export default router;

@@ -53,12 +53,12 @@ export const crearUsuario = async (req, res) => {
     }
 
     try {
-        let sql = `INSERT INTO usuarios (nombre, apellido, email, password, id_estado, facha_alta VALUES (?, ?, ?, ?, ?, ?)`;
+        let sql = `INSERT INTO usuarios (nombre, apellido, email, password, id_estado, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)`;
         let [result] = await connection.query(sql, [nombre, apellido, email, password, id_estado, fecha_alta]);
 
         res.status(201).json({
             message: "Usuario creado",
-            // payload: result
+            payload: result
         });
     } catch (error) {
         res.status(500).json({
@@ -81,9 +81,10 @@ export const actualizarUsuario = async (req, res) => {
     try {
         let sql = `UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, password = ? WHERE id_usuario = ?`;
         let [result] = await connection.query(sql, [nombre, apellido, email, password, id_usuario]);
+
         res.status(200).json({
             message: "Usuario actualizado con exito",
-            // payload: result
+            payload: result
         });
     } catch (error) {
         console.error("Error interno en el servidor", error);
@@ -94,19 +95,21 @@ export const actualizarUsuario = async (req, res) => {
     }
 }
 
-export const darDeBajaUsuario = async (req, res) => {
-    let { id_usario, id_estado } = req.params;
-    let idUsuario = parseInt(id_usario);
-    let idEstado = parseInt(id_estado);
-
-    if (isNaN(idUsuario) || isNaN(idEstado)) {
-        return res.status(400).json({
-            message: "Parametros invalidos, id_usuario y id_estado deben ser nuemros"
-        });
-    }
-
+export const actualizarEstadoUsuario = async (req, res) => {
     try {
+        let { id_usuario, id_estado } = req.params;
+
+        let idUsuario = parseInt(id_usuario);
+        let idEstado = parseInt(id_estado);
+
+        if (isNaN(idUsuario) || isNaN(idEstado)) {
+            return res.status(400).json({
+                message: "Parametros invalidos, id_usuario y id_estado deben ser nuemros"
+            });
+        }
+
         let fecha_baja = new Date();
+
         let sql = `UPDATE usuarios SET id_estado = ?, fecha_baja = ? WHERE id_usuario = ?`;
         let [result] = await connection.query(sql, [idEstado, fecha_baja, idUsuario]);
 
@@ -117,13 +120,45 @@ export const darDeBajaUsuario = async (req, res) => {
         }
 
         return res.status(200).json({
-            message: `Usuario con id ${idUsuario} dado de baja correctamente`
+            message: `Usuario con id ${idUsuario} se le actualizo el estado correctameten`
         });
+        
     } catch (error) {
         console.error("Error a dar de baja al usuario: ", error);
         res.status(500).json({
             message: `Error al intentar dar de baja al usuario:`,
             payload: error.message
         });
+    }
+}
+
+export const eliminarUsuario = async (req, res) => {
+    let { id_usuario } = req.params;
+
+    if (!id_usuario) {
+        return res.status(400), josn({
+            message: "Se requiere un id para eliminar un producto"
+        })
+    }
+
+    try {
+        let sql = `DELETE FROM usuarios WHERE id = ? `
+        let [result] = await connection.query(sql, [id]);
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({
+                message: `no se encontro un producto con el id: ${id_usuario}`
+            });
+        }
+
+        return res.status(200).json({
+            message: `Usuario con id ${id_usuario} se elimino correctamente`
+        });
+    } catch (error) {
+        console.error("");
+        res.status(500).josn({
+            message: "Error al intentar eliminar un usuario con",
+            payload: error.message
+        })
     }
 }
