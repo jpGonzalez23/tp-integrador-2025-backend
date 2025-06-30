@@ -16,7 +16,7 @@ export const getProductos = async (req, res) => {
         console.error("Erron al encontrar productos", error);
 
         res.status(500).json({
-            message: "Error interno del servidor",
+            message: "Error al obtener los productos",
             payload: error.message
         });
     }
@@ -24,22 +24,22 @@ export const getProductos = async (req, res) => {
 
 export const getProductosPorId = async (req, res) => {
     try {
-        let { id_usuario } = req.params;
+        let { id_producto } = req.params;
 
-        if (!id_usuario) {
+        if (!id_producto) {
             return res.status(400).json({
                 error: "Se requiere un ID para buscar un producto"
             });
         }
 
-        let sql = `SELECT * FROM productos WHERE id_usuario = ?`;
-        let [resul] = await connection.query(sql, [id_usuario]);
+        let sql = `SELECT * FROM productos WHERE id_producto = ?`;
+        let [result] = await connection.query(sql, [id_producto]);
 
         res.status(200).json({
-            message: resul.length === 0
+            message: result.length === 0
                 ? "No se encontro el producto buscado"
                 : "Producto encontrado",
-            payload: resul
+            payload: result
         });
     } catch (error) {
         res.status(500).json({
@@ -61,7 +61,7 @@ export const crearProducto = async (req, res) => {
     }
 
     try {
-        let sql = `INSERT INTO productos (nombre, descripcion, precio, stock, img, categoria, id_estado, fecha_alta) VALUES (?, ?, ?, ?, ?, ?, ?, ? )`;
+        let sql = `INSERT INTO productos (nombre, descripcion, precio, stock, img, categoria, id_estado, fecha_de_alta) VALUES (?, ?, ?, ?, ?, ?, ?, ? )`;
         let [result] = await connection.query(sql, [nombre, descripcion, precio, stock, img, categoria, id_estado, fecha_alta]);
 
         res.status(201).json({
@@ -82,7 +82,7 @@ export const actualizarProducto = async (req, res) => {
 
     if (!id_producto || isNaN(id_producto)) {
         return res.status(400).json({
-            error: "Se requiere un id para actualizar un producto"
+            error: "Se requiere un ID para actualizar un producto"
         });
     }
 
@@ -93,17 +93,17 @@ export const actualizarProducto = async (req, res) => {
     }
 
     try {
-        let sql = `UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ?, img = ? categoria = ? WHERE id_producto = ?`;
+        let sql = `UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ?, img = ?, categoria = ? WHERE id_producto = ?`;
         let [result] = await connection.query(sql, [nombre, descripcion, precio, stock, img, categoria, id_producto]);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                message: `No se encontro un producto con id: ${id_producto}`
+                message: `No se encontro un producto con ID: ${id_producto}`
             });
         }
 
         return res.status(200).json({
-            message: `Producto con id: ${id_producto} se actualizo correctamente`
+            message: `Producto con ID: ${id_producto} se actualizo correctamente`
         });
 
     } catch (error) {
@@ -127,10 +127,10 @@ export const actualizarEstadoProducto = async (req, res) => {
     }
 
     try {
-        let fecha_baja = new Date();
+        let fecha_de_modificacion = new Date();
 
-        let sql = `UPDATE productos SET id_estado = ?, fecha_baja = ? WHERE id_productos = ?`;
-        let [result] = await connection.query(sql, [idEstado, fecha_baja, idProducto]);
+        let sql = `UPDATE productos SET id_estado = ?, fecha_de_modificacion = ? WHERE id_producto = ?`;
+        let [result] = await connection.query(sql, [idEstado, fecha_de_modificacion, idProducto]);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
@@ -150,8 +150,9 @@ export const actualizarEstadoProducto = async (req, res) => {
     }
 }
 
-export const eliminarProducto = async (res, req) => {
+export const eliminarProducto = async (req, res) => {
     let { id_producto } = req.params;
+
     if (!id_producto) {
         return res.status(400).json({
             message: "Se requiere un ID para eliminar un producto"
@@ -164,7 +165,7 @@ export const eliminarProducto = async (res, req) => {
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                message: `No se encontro un producto con el id: ${id_producto}`
+                message: `No se encontro un producto con el ID: ${id_producto}`
             });
         }
 
