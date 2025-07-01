@@ -1,24 +1,24 @@
 import express from "express";
 import cors from "cors";
 import enviroments from "./src/api/config/enviroments.js";
-import connection from "./src/api/database/db.js";
-import loginRoutes from "./src/api/routes/login.routes.js";
-import productosRoutes from './src/api/routes/productos.routes.js'
+import { loginRoutes, productosRoutes } from "./src/api/routes/index.js";
+import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 
 const app = express();
 const PORT = enviroments.port;
 
-app.use(cors());
+
 app.use(express.json());
+app.use(cors());
 
-/***
- * Middlewares
+/*** 
+ *  Middlewares
+**/
+app.use(loggerUrl);
+
+/**
+ * Rutas
  */
-
-app.use((req, res, next) => {
-    console.log(`Fecha: ${new Date().toLocaleString()} - Method: ${req.method} - URL: ${req.url}`);
-    next();
-})
 
 app.get("/", (req, res) => {
     res.status(200).json({
@@ -34,8 +34,12 @@ app.use("/login", loginRoutes);
 /***
  * Productos
  */
-app.use("/productos", productosRoutes);
+app.use("/api/productos", productosRoutes);
 
+
+/**
+ * Escuchando el PORT
+ **/
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
