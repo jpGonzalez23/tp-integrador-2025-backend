@@ -1,9 +1,8 @@
-import connection from "../database/db.js";
+import Login from "../models/login.models.js"
 
-export const getUsuarios = async (req, res) => {
+export const getAllUser = async (req, res) => {
     try {
-        let sql = `SELECT * FROM usuarios WHERE id_estado=1`
-        let [result] = await connection.query(sql);
+        const [result] = await Login.selecAllLogin();
 
         res.status(200).json({
             message: result.length === 0
@@ -19,18 +18,17 @@ export const getUsuarios = async (req, res) => {
     }
 }
 
-export const getUsuariosPorId = async (req, res) => {
+export const getUserFromId = async (req, res) => {
     try {
         let { id_usuario } = req.params;
-        
+
         if (!id_usuario) {
             return res.status(400).json({
                 error: "Se requiere un id para obtener un producto"
             });
         }
 
-        let sql = `SELECT * FROM usuarios WHERE id_usuario = ? `;
-        let [result] = await connection.query(sql, [id_usuario]);
+        const [result] = Login.selectLoginFromId(id_usuario);
 
         res.status(200).json({
             message: result.length === 0
@@ -47,20 +45,20 @@ export const getUsuariosPorId = async (req, res) => {
     }
 }
 
-export const crearUsuario = async (req, res) => {
-    let { nombre, apellido, email, password } = req.body;
-    let fecha_alta = new Date();
-    let id_estado = 1;
-
-    if (!nombre || !apellido || !email || !password) {
-        res.status(400).json({
-            error: "Faltan campos requeridos (nombre, apellido, email, password)"
-        });
-    }
-
+export const createUser = async (req, res) => {
     try {
-        let sql = `INSERT INTO usuarios (nombre, apellido, email, password, id_estado, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)`;
-        let [result] = await connection.query(sql, [nombre, apellido, email, password, id_estado, fecha_alta]);
+
+        let { nombre, apellido, email, password } = req.body;
+        let fecha_alta = new Date();
+        let id_estado = 1;
+
+        if (!nombre || !apellido || !email || !password) {
+            res.status(400).json({
+                error: "Faltan campos requeridos (nombre, apellido, email, password)"
+            });
+        }
+
+        const [result] = Login.insertLogin(nombre, apellido, email, password, id_estado, fecha_alta);
 
         res.status(201).json({
             message: "Usuario creado",
@@ -74,19 +72,18 @@ export const crearUsuario = async (req, res) => {
     }
 }
 
-export const actualizarUsuario = async (req, res) => {
-    let { id_usuario } = req.params;
-    let { nombre, apellido, email, password } = req.body;
-
-    if (!nombre || !apellido || !email || !password) {
-        res.status(400).json({
-            error: "Faltan campos requeridos (nombre, apellido, email, password)"
-        });
-    }
-
+export const updateUser = async (req, res) => {
     try {
-        let sql = `UPDATE usuarios SET nombre = ?, apellido = ?, email = ?, password = ? WHERE id_usuario = ?`;
-        let [result] = await connection.query(sql, [nombre, apellido, email, password, id_usuario]);
+        let { id_usuario } = req.params;
+        let { nombre, apellido, email, password } = req.body;
+
+        if (!nombre || !apellido || !email || !password) {
+            res.status(400).json({
+                error: "Faltan campos requeridos (nombre, apellido, email, password)"
+            });
+        }
+
+        const [result] = Login.updateLogin(id_usuario, nombre, apellido, email, password);
 
         res.status(200).json({
             message: "Usuario actualizado con exito",
@@ -101,7 +98,7 @@ export const actualizarUsuario = async (req, res) => {
     }
 }
 
-export const actualizarEstadoUsuario = async (req, res) => {
+export const updateStateUser = async (req, res) => {
     try {
         let { id_usuario, id_estado } = req.params;
 
@@ -116,8 +113,7 @@ export const actualizarEstadoUsuario = async (req, res) => {
 
         let fecha_baja = new Date();
 
-        let sql = `UPDATE usuarios SET id_estado = ?, fecha_baja = ? WHERE id_usuario = ?`;
-        let [result] = await connection.query(sql, [idEstado, fecha_baja, idUsuario]);
+        const [result] = Login.updateLoginState(idUsuario, idEstado, fecha_baja);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
@@ -128,7 +124,7 @@ export const actualizarEstadoUsuario = async (req, res) => {
         return res.status(200).json({
             message: `Usuario con id ${idUsuario} se le actualizo el estado correctamente`
         });
-        
+
     } catch (error) {
         console.error("Error al actualizar el usuario: ", error);
         res.status(500).json({
@@ -138,18 +134,17 @@ export const actualizarEstadoUsuario = async (req, res) => {
     }
 }
 
-export const eliminarUsuario = async (req, res) => {
-    let { id_usuario } = req.params;
-
-    if (!id_usuario) {
-        return res.status(400). josn({
-            error: "Se requiere un id para eliminar un usuario"
-        })
-    }
-
+export const removeUser = async (req, res) => {
     try {
-        let sql = `DELETE FROM usuarios WHERE id_usuario = ? `
-        let [result] = await connection.query(sql, [id]);
+        let { id_usuario } = req.params;
+
+        if (!id_usuario) {
+            return res.status(400).josn({
+                error: "Se requiere un id para eliminar un usuario"
+            })
+        }
+
+        const [result] = Login.deleteLogin(id_usuario);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
