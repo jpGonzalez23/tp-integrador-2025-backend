@@ -1,9 +1,10 @@
+// * Importaciones
+
 import Productos from "../models/productos.models.js";
 
-export const getProductos = async (req, res) => {
+// Get - Obtener todos los productos
+export const getAllProduct = async (req, res) => {
     try {
-        // let sql = `SELECT * FROM productos WHERE id_estado = 1`
-        // let [result] = await connection.query(sql);
         const [result] = await Productos.selectAllProducts();
 
         res.status(200).json({
@@ -23,18 +24,10 @@ export const getProductos = async (req, res) => {
     }
 }
 
-export const getProductosPorId = async (req, res) => {
+// Get - Obtener un producto por ID
+export const getProductFromId = async (req, res) => {
     try {
         let { id } = req.params;
-
-        // if (!id_producto) {
-        //     return res.status(400).json({
-        //         error: "Se requiere un ID para buscar un producto"
-        //     });
-        // }
-
-        // let sql = `SELECT * FROM productos WHERE id_producto = ?`;
-        // let [result] = await connection.query(sql, [id_producto]);
 
         const [result] = await Productos.selectProductoFromId(id);
 
@@ -52,7 +45,8 @@ export const getProductosPorId = async (req, res) => {
     }
 }
 
-export const crearProducto = async (req, res) => {
+// Post - Crear un producto
+export const createProduct = async (req, res) => {
     try {
         let { nombre, descripcion, precio, stock, img, categoria } = req.body;
         let fecha_de_alta = new Date();
@@ -63,8 +57,6 @@ export const crearProducto = async (req, res) => {
                 error: "Faltan campos requeridos (nombre, descripcion, precio, stock, img, categoria)"
             });
         }
-        // let sql = `INSERT INTO productos (nombre, descripcion, precio, stock, img, categoria, id_estado, fecha_de_alta) VALUES (?, ?, ?, ?, ?, ?, ?, ? )`;
-        // let [result] = await connection.query(sql, [nombre, descripcion, precio, stock, img, categoria, id_estado, fecha_de_alta]);
 
         const [result] = await Productos.insertProducto(nombre, descripcion, precio, stock, img, categoria, id_estado, fecha_de_alta);
 
@@ -80,26 +72,17 @@ export const crearProducto = async (req, res) => {
     }
 }
 
-export const actualizarProducto = async (req, res) => {
-    let { id } = req.params;
-    let { nombre, descripcion, precio, stock, img, categoria } = req.body;
-
-    // if (!id_producto || isNaN(id_producto)) {
-    //     return res.status(400).json({
-    //         error: "Se requiere un ID para actualizar un producto"
-    //     });
-    // }
-
-    if (!nombre || !descripcion || !precio || !stock || !img || !categoria) {
-        return res.status(400).json({
-            error: "Faltan campos requeridos (nombre, descripcion, precio, stock, img, categoria)"
-        });
-    }
-
+// Put - Actualizar un producto
+export const updateProduct = async (req, res) => {
     try {
-        // let sql = `UPDATE productos SET nombre = ?, descripcion = ?, precio = ?, stock = ?, img = ?, categoria = ? WHERE id_producto = ?`;
-        // let [result] = await connection.query(sql, [nombre, descripcion, precio, stock, img, categoria, id_producto]);
+        let { id } = req.params;
+        let { nombre, descripcion, precio, stock, img, categoria } = req.body;
 
+        if (!nombre || !descripcion || !precio || !stock || !img || !categoria) {
+            return res.status(400).json({
+                error: "Faltan campos requeridos (nombre, descripcion, precio, stock, img, categoria)"
+            });
+        }
         let [result] = await Productos.updateProducto(id, nombre, descripcion, precio, stock, img, categoria);
 
         if (result.affectedRows === 0) {
@@ -120,7 +103,8 @@ export const actualizarProducto = async (req, res) => {
     }
 }
 
-export const actualizarEstadoProducto = async (req, res) => {
+// Put - Actualizar el estado de un producto
+export const updateStateProduct = async (req, res) => {
 
     try {
         let { id_producto, id_estado } = req.params;
@@ -134,9 +118,6 @@ export const actualizarEstadoProducto = async (req, res) => {
             });
         }
         let fecha_de_modificacion = new Date();
-
-        // let sql = `UPDATE productos SET id_estado = ?, fecha_de_modificacion = ? WHERE id_producto = ?`;
-        // let [result] = await connection.query(sql, [idEstado, fecha_de_modificacion, idProducto]);
 
         const [result] = await Productos.updateProductoEstado(idProducto, fecha_de_modificacion, idEstado);
 
@@ -158,7 +139,8 @@ export const actualizarEstadoProducto = async (req, res) => {
     }
 }
 
-export const eliminarProducto = async (req, res) => {
+// Delete - Eliminar un producto
+export const removeProduct = async (req, res) => {
     try {
         let { id_producto } = req.params;
 
@@ -167,8 +149,6 @@ export const eliminarProducto = async (req, res) => {
                 message: "Se requiere un ID para eliminar un producto"
             });
         }
-        // let sql = `DELETE FROM productos WHERE id_producto = ? `
-        // let [result] = await connection.query(sql, [id_producto]);
 
         const [result] = await Productos.deleteProducto(id_producto);
 

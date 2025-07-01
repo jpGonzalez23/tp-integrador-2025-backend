@@ -1,3 +1,6 @@
+/**
+ * Importaciones
+ */
 import express from "express";
 import cors from "cors";
 import enviroments from "./src/api/config/enviroments.js";
@@ -7,13 +10,11 @@ import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 const app = express();
 const PORT = enviroments.port;
 
-
-app.use(express.json());
-app.use(cors());
-
 /*** 
  *  Middlewares
 **/
+app.use(express.json());
+app.use(cors());
 app.use(loggerUrl);
 
 /**
@@ -29,7 +30,7 @@ app.get("/", (req, res) => {
 /**
  * Login
  */
-app.use("/login", loginRoutes);
+app.use("/api/login", loginRoutes);
 
 /***
  * Productos
