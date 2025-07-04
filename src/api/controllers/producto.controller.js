@@ -107,9 +107,9 @@ export const updateProduct = async (req, res) => {
 export const updateStateProduct = async (req, res) => {
 
     try {
-        let { id_producto, id_estado } = req.params;
+        let { id, id_estado } = req.params;
 
-        let idProducto = parseInt(id_producto);
+        let idProducto = parseInt(id);
         let idEstado = parseInt(id_estado);
 
         if (isNaN(idProducto) || isNaN(idEstado)) {
@@ -117,6 +117,7 @@ export const updateStateProduct = async (req, res) => {
                 message: "Los parametros invalidos, id_producto y id_estado deben ser numericos"
             });
         }
+        
         let fecha_de_modificacion = new Date();
 
         const [result] = await Productos.updateProductoEstado(idProducto, fecha_de_modificacion, idEstado);
@@ -142,24 +143,24 @@ export const updateStateProduct = async (req, res) => {
 // Delete - Eliminar un producto
 export const removeProduct = async (req, res) => {
     try {
-        let { id_producto } = req.params;
+        let { id } = req.params;
 
-        if (!id_producto) {
-            return res.status(400).json({
-                message: "Se requiere un ID para eliminar un producto"
-            });
-        }
+        // if (!id) {
+        //     return res.status(400).json({
+        //         message: "Se requiere un ID para eliminar un producto"
+        //     });
+        // }
 
-        const [result] = await Productos.deleteProducto(id_producto);
+        const [result] = await Productos.deleteProducto(id);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                message: `No se encontro un producto con el ID: ${id_producto}`
+                message: `No se encontro un producto con el ID: ${id}`
             });
         }
 
         res.status(200).json({
-            message: `Prodcuto con ID: ${id_producto} se elimino correctamente`
+            message: `Prodcuto con ID: ${id} se elimino correctamente`
         });
     } catch (error) {
         res.status(500).json({
