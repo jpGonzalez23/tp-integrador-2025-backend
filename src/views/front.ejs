@@ -10,8 +10,6 @@
         <div class="titular">
         <div class="filtros">
         <p>Ordenar: </p>
-        <!--<button onClick="ordenarPorNombre(this)">A - Z</button>
-        <button onClick="ordenarPorPrecio(this)">Precio Asc.</button>-->
         </div>
         </div>
 
@@ -30,35 +28,18 @@
   
                     <li class="li-listados productos-listados">
                         <img src=" <%= prod.img %> " alt=" <%= prod.nombre %> " class="img-listados">
-                        <h3><%= prod.nombre %></h3>
-                        <p><%= prod.descripcion %></p>
-                        <p><strong>Categoria: </strong><%= prod.categoria %></p>
-                        <p><strong>$<%= prod.precio %></strong></p>
+                        <ul>
+                            <h3><%= prod.nombre %></h3>
+                            <p><%= prod.descripcion %></p>
+                            <p><strong>Categoria: </strong><%= prod.categoria %></p>
+                            <p><strong>$<%= prod.precio %></strong></p>
+                        </ul>
                     </li> 
     
                 <% }) %>
             </ul>
         </div>
         </section>
-
-
-        <!-- Seccion carrito -->
-        <!--<section class="seccion-carrito">
-        <h2>Carrito</h2>
-
-        <div id="items-carrito">
-        <p>No hay elementos en el carrito.</p>
-        </div>
-
-        <div class="total-carrito">
-        <p>Total: <span id="precio-total">$0.00</span></p>
-        </div>
-
-        <div class="vaciarCarrito">
-        <button class="eliminarCarrito" onclick="eliminarCarrito()">Vaciar carrito</button>
-        </div>
-        </section>-->
-
     </main>
 
 <%- include("partials/footer.ejs") %>

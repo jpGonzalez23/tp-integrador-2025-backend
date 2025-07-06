@@ -37,6 +37,7 @@ const deleteLogin = async (id_user) => {
     return await connection.query(sql, [id_user]);
 }
 
+// Exportar las funciones
 export default {
     selecAllLogin,
     selectLoginFromId,

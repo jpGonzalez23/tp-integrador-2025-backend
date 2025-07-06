@@ -6,6 +6,7 @@ const selectAllProducts = async () => {
     return await connection.query(sql);
 }
 
+// promise para seleccionar todos los productos ordenados por nombre
 const selectAllProductsOrder = async (orden = "az") => {
     let sql = `SELECT * FROM productos`;
 

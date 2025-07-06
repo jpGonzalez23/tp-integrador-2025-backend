@@ -1,5 +1,4 @@
-// * Importaciones
-
+// Importaciones
 import Productos from "../models/productos.models.js";
 
 // Get - Obtener todos los productos
@@ -143,13 +142,6 @@ export const updateStateProduct = async (req, res) => {
 export const removeProduct = async (req, res) => {
     try {
         let { id } = req.params;
-
-        // if (!id) {
-        //     return res.status(400).json({
-        //         message: "Se requiere un ID para eliminar un producto"
-        //     });
-        // }
-
         const [result] = await Productos.deleteProducto(id);
 
         if (result.affectedRows === 0) {

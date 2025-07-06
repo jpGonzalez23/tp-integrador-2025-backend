@@ -13,11 +13,11 @@ import { createProduct } from "../controllers/producto.controller.js";
 const router = Router();
 
 // Rutas para manejar usuarios
-router.get('/', getAllUser);
-router.get('/:id_usuario', validateId, getUserFromId);
-router.post('/', createProduct);
-router.put('/:id_usuario', validateId, updateUser);
-router.put('/:id_usuario/:id_estado', validateId, updateStateUser);
-router.delete('/:id_usuario', validateId, removeUser);
+router.get('/', getAllUser); // Obtener todos los usuarios
+router.get('/:id_usuario', validateId, getUserFromId); // Obtener un usuario por ID
+router.post('/', createProduct); // Crear un nuevo usuario
+router.put('/:id_usuario', validateId, updateUser); // Actualizar un usuario
+router.put('/:id_usuario/:id_estado', validateId, updateStateUser); // Actualizar el estado de un usuario
+router.delete('/:id_usuario', validateId, removeUser); // Eliminar un usuario
 
 export default router;

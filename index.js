@@ -8,13 +8,13 @@ import { loginRoutes, productosRoutes, carritoRoutes, viewRoutes } from "./src/a
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { __dirname, join } from "./src/api/utils/index.js";
 
+// Importaciones de utilidades para manejar rutas y directorios
 const app = express();
 const PORT = enviroments.port;
 
+// Configuración del servidor
 app.set("view engine", "ejs");
-
 app.set("views", join(__dirname, "src/views"));
-
 app.use(express.static(join(__dirname, "src/public")));
 
 
@@ -55,9 +55,6 @@ app.use("/api/productos", productosRoutes);
  * Carrito
  */
 app.use("/api/carrito", carritoRoutes);
-
-
-
 
 /**
  * Escuchando el PORT

@@ -1,8 +1,10 @@
+// middewares para mostrar la url
 const loggerUrl = ((req, res, next) => {
     console.log(`Fecha: ${new Date().toLocaleString()} - Method: ${req.method} - URL: ${req.url}`);
     next();
 });
 
+// middewares para validar el id
 const validateId = (req, res, next) => {
     const { id } = req.params;
 
@@ -16,6 +18,7 @@ const validateId = (req, res, next) => {
     next();
 }
 
+// Exportamos los middlewares
 export {
     loggerUrl,
     validateId

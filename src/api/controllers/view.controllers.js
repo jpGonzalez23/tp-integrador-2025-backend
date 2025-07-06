@@ -1,5 +1,7 @@
+// importaciones
 import Productos from "../models/productos.models.js";
 
+// controladores para las vistas
 export const vistaIndex = async (req, res) =>{
     try {
         const resultProductos = await Productos.selectAllProducts();
@@ -15,6 +17,7 @@ export const vistaIndex = async (req, res) =>{
     }
 }
 
+// controlador para la vista de productos ordenados
 export const vistaFront = async (req, res) =>{
     try {
         const orden = req.query.orden || "az";
@@ -32,6 +35,7 @@ export const vistaFront = async (req, res) =>{
     }
 }
 
+// controladores para las vistas de consultar
 export const vistaConsulta = (req, res) => {
     res.render("consultar", {
         title: "Consulta de productos",
@@ -39,12 +43,14 @@ export const vistaConsulta = (req, res) => {
     });
 }
 
+// controladores para las vistas de crear
 export const vistaCrear = (req, res) => {
     res.render("crear", {
         title: "Crear producto",
     });
 }
 
+// controladores para las vistas de modificar
 export const vistaModificar = (req, res) => {
     res.render("modificar", {
         title: "Modificar producto",
@@ -52,6 +58,7 @@ export const vistaModificar = (req, res) => {
     });
 }
 
+// controladores para las vistas de eliminar
 export const vistaEliminar = (req, res) => {
     res.render("eliminar", {
         title: "Eliminar producto",

@@ -1,5 +1,7 @@
+// importaciones
 import Carrito from '../models/carrito.models.js';
 
+// Post - Crear un producto
 export const crearCarrito = async (req, res) => {
     try {
         let { id_usuario } = req.body;
@@ -31,6 +33,7 @@ export const crearCarrito = async (req, res) => {
     }
 }
 
+// Post - Agregar un producto al carrito
 export const agregarProductoACarrito = async (req, res) => {
     try {
         let { id_carrito, id_producto, cantidad } = req.body;
@@ -62,6 +65,7 @@ export const agregarProductoACarrito = async (req, res) => {
     }
 }
 
+// Get - Obtener el carrito de un usuario
 export const obtenerCarrito = async (req, res) => {
     try {
         let { id_usuario } = req.params;
@@ -92,6 +96,7 @@ export const obtenerCarrito = async (req, res) => {
     }
 }
 
+// Put - Cerrar el carrito
 export const cerrarCarrito = async (req, res) => {
     try {
         let { id_carrito } = req.params;

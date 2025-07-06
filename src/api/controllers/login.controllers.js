@@ -1,5 +1,7 @@
-import Login from "../models/login.models.js"
+// importaciones
+import Login from "../models/login.models.js";
 
+// Get - Obtener todos los usuarios
 export const getAllUser = async (req, res) => {
     try {
         const [result] = await Login.selecAllLogin();
@@ -18,13 +20,14 @@ export const getAllUser = async (req, res) => {
     }
 }
 
+// Get - Obtener un usuario por ID
 export const getUserFromId = async (req, res) => {
     try {
         let { id_usuario } = req.params;
 
         if (!id_usuario) {
             return res.status(400).json({
-                error: "Se requiere un id para obtener un producto"
+                error: "Se requiere un id para obtener un usuario"
             });
         }
 
@@ -45,6 +48,7 @@ export const getUserFromId = async (req, res) => {
     }
 }
 
+// Post - Crear un usuario
 export const createUser = async (req, res) => {
     try {
 
@@ -72,6 +76,7 @@ export const createUser = async (req, res) => {
     }
 }
 
+// Put - Actualizar un usuario
 export const updateUser = async (req, res) => {
     try {
         let { id_usuario } = req.params;
@@ -98,6 +103,7 @@ export const updateUser = async (req, res) => {
     }
 }
 
+// Put - Actualizar el estado de un usuario
 export const updateStateUser = async (req, res) => {
     try {
         let { id_usuario, id_estado } = req.params;
@@ -107,7 +113,7 @@ export const updateStateUser = async (req, res) => {
 
         if (isNaN(idUsuario) || isNaN(idEstado)) {
             return res.status(400).json({
-                error: "Parametros invalidos, id_usuario y id_estado deben ser nuemros"
+                error: "Parametros invalidos, id_usuario y id_estado deben ser numeros"
             });
         }
 
@@ -117,7 +123,7 @@ export const updateStateUser = async (req, res) => {
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                message: `No se encontro un usuario con id: ${idUsuario}`
+                error: `No se encontro un usuario con id: ${idUsuario}`
             });
         }
 
@@ -134,13 +140,14 @@ export const updateStateUser = async (req, res) => {
     }
 }
 
+// Delete - Eliminar un usuario
 export const removeUser = async (req, res) => {
     try {
         let { id_usuario } = req.params;
 
         if (!id_usuario) {
             return res.status(400).josn({
-                error: "Se requiere un id para eliminar un usuario"
+                Error: "Se requiere un id para eliminar un usuario"
             })
         }
 
@@ -148,7 +155,7 @@ export const removeUser = async (req, res) => {
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
-                message: `no se encontro un usuario con el id: ${id_usuario}`
+                Error: `No se encontro un usuario con el id: ${id_usuario}`
             });
         }
 
