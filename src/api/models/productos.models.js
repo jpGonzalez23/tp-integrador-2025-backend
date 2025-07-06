@@ -6,6 +6,19 @@ const selectAllProducts = async () => {
     return await connection.query(sql);
 }
 
+const selectAllProductsOrder = async (orden = "az") => {
+    let sql = `SELECT * FROM productos`;
+
+    if (orden === "az") {
+        sql += ` ORDER BY nombre ASC`;
+    }
+    else if (orden === "za") {
+        sql += ` ORDER BY nombre DESC`;
+    }
+
+    return await connection.query(sql);
+}
+
 // promise para seleccionar un producto por ID
 const selectProductoFromId = async (id_producto) => {
     let sql = `SELECT * FROM productos WHERE id_producto = ?`;
@@ -40,6 +53,7 @@ const deleteProducto = async (id_producto) => {
 export default {
     selectAllProducts,
     selectProductoFromId,
+    selectAllProductsOrder,
     insertProducto,
     updateProducto,
     updateProductoEstado,

@@ -63,7 +63,7 @@
                     throw new Error(`Error en el envio de datos del formulario`);
                 }
 
-                let response = await fetch(`${url}/products/${idProd}`);
+                let response = await fetch(`${url}/productos/${idProd}`);
 
                 ///////////////////
                 // Optimizacion 4: Manejamos el error en una posible respuesta no existosa
@@ -86,12 +86,12 @@
 
                 // Guardamos nuestro producto en una variable
                 let producto = datos.payload[0];
-                console.log(producto); // {"id": 2, "name": "hamburguesa salmon", "image": "https://burgernj.com/wp-content/uploads/2021/05/Salmon-Burger_.jpg", "category": "food", "price": "2500.00", "active": }
+                console.log(producto); 
 
                 let htmlProducto = `
                     <li id="producto-encontrado" class="li-listados productos-listados">
-                        <img src="${producto.image}" alt="${producto.name}" class="img-listados">
-                        <p>Id: ${producto.id} / Nombre: ${producto.name} / <strong>Precio: ${producto.price}$</strong></p>
+                        <img src="${producto.img}" alt="${producto.nombre}" class="img-listados">
+                        <p>Nombre: ${producto.nombre} / <strong>Precio: ${producto.precio}$</strong></p>
                     </li>
                 `;
 

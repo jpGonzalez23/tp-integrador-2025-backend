@@ -36,6 +36,12 @@ app.get("/", (req, res) => {
 });
 
 /**
+ * Dashboard
+ */
+
+app.use("/dashboard", viewRoutes);
+
+/**
  * Login
  */
 app.use("/api/login", loginRoutes);
@@ -51,11 +57,7 @@ app.use("/api/productos", productosRoutes);
 app.use("/api/carrito", carritoRoutes);
 
 
-/**
- * Dashboard
- */
 
-app.use("/api/dashboard", viewRoutes)
 
 /**
  * Escuchando el PORT

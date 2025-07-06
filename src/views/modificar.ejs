@@ -74,7 +74,7 @@
                     throw new Error(`Error en el envio de datos del formulario`);
                 }
 
-                let response = await fetch(`${url}/products/${idProd}`);
+                let response = await fetch(`${url}/productos/${idProd}`);
 
                 ///////////////////
                 // Optimizacion 4: Manejamos el error en una posible respuesta no existosa
@@ -97,15 +97,15 @@
 
                 // Guardamos nuestro producto en una variable
                 let producto = datos.payload[0];
-                console.log(producto); // {"id": 2, "name": "hamburguesa salmon", "image": "https://burgernj.com/wp-content/uploads/2021/05/Salmon-Burger_.jpg", "category": "food", "price": "2500.00", "active": }
+                console.log(producto);
 
 
                 // Le agregamos el boton que permita actualizar este producto encontrado
                 let htmlProducto = `
                     <li class="li-listados productos-listados">
                         <div class="li-listados_datos">
-                            <p>Id: ${producto.id} / Nombre: ${producto.name} / <strong>Precio: $${producto.price}</strong></p>
-                            <img src="${producto.image}" alt="${producto.nombre}" class="img-listados">
+                            <p> Nombre: ${producto.nombre} / <strong>Precio: $${producto.precio}</strong></p>
+                            <img src="${producto.img}" alt="${producto.nombre}" class="img-listados">
                         </div>
                         <div class="li-listados_boton">
                             <input class="listados_boton" id="updateProduct_button" type="button" value="Actualizar producto">
@@ -147,23 +147,29 @@
 
                 <form id="updateProducts-form" autocomplete="off">
 
-                    <label for="idProd">Id</label>
-                    <input type="number" name="id" id="idProd" value=${producto.id} readonly>
+                    <label for="idProduc">id</label>
+                    <input type="text" name="id" id="idProduc" value="${producto.id_producto}" readonly>
 
-                    <label for="categoryProd">Categoria</label>
-                    <select name="category" id="categoryProd" required>
-                        <option value="food">food</option>
-                        <option value="drink">drink</option>
+                    <label for="nombreProduc">Nombre</label>
+                    <input type="text" name="nombre" id="nombreProduc" value="${producto.nombre}" required>
+                    
+                    <label for="descripcionProduct">Descripcion</label>
+                    <input type="text" name="descripcion" id="descripcionProduct" value="${producto.descripcion}" required>
+                    
+                    <label for="precioProduct">Precio</label>
+                    <input type="number" name="precio" id="precioProduct" ${producto.precio} required>
+
+                    <label for="stockProduct">stock</label>
+                    <input type="number" name="stock" id="stockProduct" value=${producto.stock} required>
+
+                    <label for="imgProduct">Imagen</label>
+                    <input type="text" name="img" id="imagenProd" value=${producto.img} required>
+
+                    <label for="categoriaProduct">Categoria</label>
+                    <select name="categoria" id="categoriaProduct" required>
+                        <option value="ps4">PS4</option>
+                        <option value="ps5">PS5</option>
                     </select>
-
-                    <label for="imagenProd">Imagen</label>
-                    <input type="text" name="image" id="imagenProd" value=${producto.image} required>
-
-                    <label for="nombreUser">Nombre</label>
-                    <input type="text" name="name" id="nombreUser" value=${producto.name} required>
-
-                    <label for="precioProd">Precio</label>
-                    <input type="number" name="price" id="precioProd" value=${producto.price} required>
 
                     <input type="submit" value="Actualizar producto">
                 </form>
@@ -191,14 +197,14 @@
             let data = Object.fromEntries(formData.entries());
             console.table(data);
 
-            if(!data.name || !data.image || !data.price) {
+            if(!data.nombre || !data.descripcion || !data.precio || !data.stock || !data.img || !data.categoria) {
                 alert("Todos los campos son obligatorios");
                 return;
             }
 
 
             try {
-                let response = await fetch(`${url}/products`, {
+                let response = await fetch(`${url}/productos`, {
                     method: "PUT",
                     headers: {
                         "Content-type" : "application/json",
@@ -219,11 +225,11 @@
 
                 } else {
                     let error = await response.json();
-                    console.log("Error", error.message)
+                    console.log("Error: ", error.message)
                 }
 
             } catch (error) {
-                console.log("Error al enviar los datos", error);
+                console.log("Error al enviar los datos: ", error);
                 alert("Error al procesar la solicitud");
             }
         }

@@ -75,10 +75,9 @@ export const createProduct = async (req, res) => {
 // Put - Actualizar un producto
 export const updateProduct = async (req, res) => {
     try {
-        let { id } = req.params;
-        let { nombre, descripcion, precio, stock, img, categoria } = req.body;
+        let { id, nombre, descripcion, precio, stock, img, categoria } = req.body;
 
-        if (!nombre || !descripcion || !precio || !stock || !img || !categoria) {
+        if (!id || !nombre || !descripcion || !precio || !stock || !img || !categoria) {
             return res.status(400).json({
                 error: "Faltan campos requeridos (nombre, descripcion, precio, stock, img, categoria)"
             });
@@ -107,7 +106,7 @@ export const updateProduct = async (req, res) => {
 export const updateStateProduct = async (req, res) => {
 
     try {
-        let { id, id_estado } = req.params;
+        let { id, id_estado } = req.body;
 
         let idProducto = parseInt(id);
         let idEstado = parseInt(id_estado);

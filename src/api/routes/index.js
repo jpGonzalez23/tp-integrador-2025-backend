@@ -7,7 +7,7 @@ import viewRoutes from "./view.routes.js";
 // Exportar las rutas
 export {
     productosRoutes,
-    carritoRoutes,
+    viewRoutes,
     loginRoutes,
-    viewRoutes
+    carritoRoutes
 }

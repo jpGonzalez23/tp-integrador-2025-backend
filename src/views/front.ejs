@@ -15,22 +15,24 @@
         </div>
         </div>
 
-        <form method="get" action="/dashboard/front">
+        <form>
         <label for="orden">Ordenar por nombre:</label>
         <select name="orden" id="orden" onchange="this.form.submit()">
-            <option value="az" <%= order === 'az' ? 'selected' : '' %>>A-Z</option>
-            <option value="za" <%= order === 'za' ? 'selected' : '' %>>Z-A</option>
+            <option value="az" <%= orden === 'az' ? 'selected' : '' %>>A-Z</option>
+            <option value="za" <%= orden === 'za' ? 'selected' : '' %>>Z-A</option>
         </select>
         </form>
 
         <div id="productos-container">
             <ul id="productos-lista">
   
-                <% products.forEach(prod => {  %>
+                <% productos.forEach(prod => {  %>
   
                     <li class="li-listados productos-listados">
                         <img src=" <%= prod.img %> " alt=" <%= prod.nombre %> " class="img-listados">
                         <h3><%= prod.nombre %></h3>
+                        <p><%= prod.descripcion %></p>
+                        <p><strong>Categoria: </strong><%= prod.categoria %></p>
                         <p><strong>$<%= prod.precio %></strong></p>
                     </li> 
     

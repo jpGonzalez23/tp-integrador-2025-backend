@@ -11,22 +11,27 @@
 
             <form id="altaProducts-form" autocomplete="off">
 
-                <label for="categoryProd">Categoria</label>
-                <select name="category" id="categoryProd" required>
-                    <option value="food">food</option>
-                    <option value="drink">drink</option>
-                </select>
+                <label for="nombrePrdoc">Nombre</label>
+                <input type="text" name="nombre" id="nombrePrdoc" required>
+                
+                <label for="descripcionProd">Descripcion</label>
+                <input type="text" name="descripcion" id="descripcionProd" required>
+                
+                <label for="precioProd">Precio</label>
+                <input type="number" name="precio" id="precioProd" required>
+
+                <label for="stockProd">stock</label>
+                <input type="number" name="stock" id="stockProd" required>
 
                 <label for="imagenProd">Imagen</label>
-                <input type="text" name="image" id="imagenProd" required>
+                <input type="text" name="img" id="imagenProd" required>
 
-                <label for="nombreUser">Nombre</label>
-                <input type="text" name="name" id="nombreUser" required>
+                <label for="categoryProd">Categoria</label>
+                <select name="categoria" id="categoryProd" required>
+                    <option value="ps4">PS4</option>
+                    <option value="ps5">PS5</option>
+                </select>
 
-                <label for="precioProd">Precio</label>
-                <input type="number" name="price" id="precioProd" required>
-
-                
                 <input type="submit" value="Crear producto">
             </form>
         </div>
@@ -46,16 +51,16 @@
             let formData = new FormData(event.target); // Obtenemos la data del formulario
 
             let data = Object.fromEntries(formData.entries()); // Convertimos a objeto JS nuestro objeto formulario
-            console.log(data); // {category: 'food', image: 'imagen empanada', name: 'empanada', price: '60'}
+            console.log(data); // {categoria: 'food', image: 'imagen empanada', name: 'empanada', price: '60'}
 
             // Validamos datos previamente en el cliente
-            if(!data.name || !data.image || !data.price) {
+            if(!data.nombre || !data.descripcion || !data.precio || !data.stock || !data.img || !data.categoria) {
                 alert("Todos los campos son obligatorios!");
                 return;
             }
 
             try {
-                let response = await fetch(`${url}/products`, {
+                let response = await fetch(`${url}/productos`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -72,11 +77,11 @@
 
                 } else {
                     let error = await response.json();
-                    console.log("Error:", error.message);
+                    console.log("Error: ", error);
                 }
 
-            } catch {
-                console.log("Error al enviar los datos", error);
+            } catch (error) {
+                console.log("Error al enviar los datos: ", error);
                 alert("Error al enviar la solicitud");
             }
 
