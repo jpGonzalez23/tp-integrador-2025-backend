@@ -1,0 +1,62 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/nav.ejs") %>
+
+    <hr>
+        <h1><%= title %></h1>
+    <hr>
+
+    <main id="contenedor-get">
+        <section class="seccion-productos">
+        <div class="titular">
+        <div class="filtros">
+        <p>Ordenar: </p>
+        <!--<button onClick="ordenarPorNombre(this)">A - Z</button>
+        <button onClick="ordenarPorPrecio(this)">Precio Asc.</button>-->
+        </div>
+        </div>
+
+        <form method="get" action="/dashboard/front">
+        <label for="orden">Ordenar por nombre:</label>
+        <select name="orden" id="orden" onchange="this.form.submit()">
+            <option value="az" <%= order === 'az' ? 'selected' : '' %>>A-Z</option>
+            <option value="za" <%= order === 'za' ? 'selected' : '' %>>Z-A</option>
+        </select>
+        </form>
+
+        <div id="productos-container">
+            <ul id="productos-lista">
+  
+                <% products.forEach(prod => {  %>
+  
+                    <li class="li-listados productos-listados">
+                        <img src=" <%= prod.img %> " alt=" <%= prod.nombre %> " class="img-listados">
+                        <h3><%= prod.nombre %></h3>
+                        <p><strong>$<%= prod.precio %></strong></p>
+                    </li> 
+    
+                <% }) %>
+            </ul>
+        </div>
+        </section>
+
+
+        <!-- Seccion carrito -->
+        <!--<section class="seccion-carrito">
+        <h2>Carrito</h2>
+
+        <div id="items-carrito">
+        <p>No hay elementos en el carrito.</p>
+        </div>
+
+        <div class="total-carrito">
+        <p>Total: <span id="precio-total">$0.00</span></p>
+        </div>
+
+        <div class="vaciarCarrito">
+        <button class="eliminarCarrito" onclick="eliminarCarrito()">Vaciar carrito</button>
+        </div>
+        </section>-->
+
+    </main>
+
+<%- include("partials/footer.ejs") %>

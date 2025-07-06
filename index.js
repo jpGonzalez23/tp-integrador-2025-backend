@@ -55,7 +55,7 @@ app.use("/api/carrito", carritoRoutes);
  * Dashboard
  */
 
-app.use("/dashboard", viewRoutes)
+app.use("/api/dashboard", viewRoutes)
 
 /**
  * Escuchando el PORT
