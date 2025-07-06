@@ -105,7 +105,8 @@ export const updateProduct = async (req, res) => {
 export const updateStateProduct = async (req, res) => {
 
     try {
-        let { id, id_estado } = req.body;
+        let { id } = req.params;
+        let { id_estado } = req.body;
 
         let idProducto = parseInt(id);
         let idEstado = parseInt(id_estado);

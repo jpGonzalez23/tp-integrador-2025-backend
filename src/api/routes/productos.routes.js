@@ -17,7 +17,7 @@ router.get('/', getAllProduct); // Obtener todos los productos
 router.get('/:id', validateId, getProductFromId); // Obtener un producto por ID
 router.post('/', createProduct); // Crear un nuevo producto
 router.put('/', updateProduct); // Actualizar un producto
-router.put('/', validateId, updateStateProduct); // Actualizar el estado de un producto
+router.put('/:id', validateId, updateStateProduct); // Actualizar el estado de un producto
 router.delete('/:id', validateId, removeProduct); // Eliminar un producto
 
 export default router;

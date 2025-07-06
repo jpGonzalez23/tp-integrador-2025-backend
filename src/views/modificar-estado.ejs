@@ -27,80 +27,40 @@
         <div id="updateForm-container"></div>
 
     </main>
-
-
-    <!-- Por tema legibilidad, incorporamos aca el JavaScript -->
     <script>
-
         const url = "http://localhost:3000/api";
 
-        ////////////////
-        // GET BY ID //
         let getProduct_form = document.getElementById("getProduct-form");
         let getId_lista = document.getElementById("getId-list");
         let updateForm_container = document.getElementById("updateForm-container");
 
         getProduct_form.addEventListener("submit", async (event) => {
-
             event.preventDefault(); // Evitamos el envio por defecto del formulario
 
             try {
-
-                ///////////////////
-                // Optimizacion 1: Mostrar el estado de carga
-                getId_lista.innerHTML = "<p>Cargando usuario...</p>";
-
-
-                // Queremos extraer la informacion de los campos del formulario!
-                // Este es un objeto JavaScript especifico de informacion de formularios HTML
-                let formData = new FormData(event.target); 
-
-                // Transformamos el objeto FormData en un objeto JS normal
+                let formData = new FormData(event.target);
                 let data = Object.fromEntries(formData.entries());
-                console.log(data);
+                console.log(`Data: `, data);
 
-                // Ahora que obtenemos el objeto con el campo de idProd, vamos a guardarlo en una variable
-                
+                let idProd = data.idProd.trim();
+                console.log(`idProd: ${idProd}`);
 
-                ///////////////////
-                // Optimizacion 2: Eliminamos posibles espacios con .trim()
-                let idProd = data.idProd.trim(); 
-                console.log(idProd);
-
-
-                ///////////////////
-                // Optimizacion 3: Validacion basica
-                if(!idProd) {
-                    throw new Error(`Error en el envio de datos del formulario`);
+                if (!idProd) {
+                    throw new Error(`Error: en el envio de datos del formulario`);
                 }
 
                 let response = await fetch(`${url}/productos/${idProd}`);
 
-                ///////////////////
-                // Optimizacion 4: Manejamos el error en una posible respuesta no existosa
-                if(!response.ok) {
-                    throw new Error(`Error ${response.status}: ${response.statusText}`); // Error 404: Not Found
-                }
-
-
                 let datos = await response.json();
-                console.log(datos);
+                console.log(`Datos: `, datos);  
 
-
-                ///////////////////
-                // Optimizacion 5: Verificamos si existen productos en la respuesta
-                if(!datos.payload || datos.payload.length === 0) {
-                    throw new Error("No se encontro el producto solicitado")
+                if (!datos.payload || datos.payload.length === 0) {
+                    throw new Error(`Error: No se encontraron productos con el ID ${idProd}`);      
                 }
-                
 
-
-                // Guardamos nuestro producto en una variable
                 let producto = datos.payload[0];
-                console.log(producto);
-
-
-                // Le agregamos el boton que permita actualizar este producto encontrado
+                console.log(`Producto: `, producto);
+                
                 let htmlProducto = `
                     <li class="li-listados productos-listados">
                         <div class="li-listados_datos">
@@ -117,30 +77,22 @@
 
                 let updateProduct_button = document.getElementById("updateProduct_button");
 
-                updateProduct_button.addEventListener("click", function(event) {
+                updateProduct_button.addEventListener("click", () => {
                     formularioPutProducto(event, producto);
                 });
-
-
+                
             } catch (error) {
                 console.error("Error al obtener el producto: ", error);
-
-                ///////////////////
-                // Optimizacion 6: Escribir un mensaje de error
-                getId_lista.innerHTML = `<p>${error.message}</p>`
+                getId_lista.innerHTML = `<p> ${error.message}</p>`; 
+                
             }
         });
 
-
-
-        //////////
-        // PUT //
-
-        // Manejamos ele evneto para mostrar el formulario con los valores por defecto
         function formularioPutProducto(event, producto) {
-            event.stopPropagation(); // Evitamos la propagacion de eventos
-            console.log(producto);
+            event.stopPropagation(); // Evitamos que el evento se propague
 
+            console.log(producto);
+            
             let updateProduct = `
             <div id="updateProducts-container" class="crudForm-container">
                 <h2>Actualizar producto</h2>
@@ -151,24 +103,30 @@
                     <input type="text" name="id" id="idProduc" value="${producto.id_producto}" readonly>
 
                     <label for="nombreProduc">Nombre</label>
-                    <input type="text" name="nombre" id="nombreProduc" value="${producto.nombre}" required>
+                    <input type="text" name="nombre" id="nombreProduc" value="${producto.nombre}" readonly>
                     
                     <label for="descripcionProduct">Descripcion</label>
-                    <input type="text" name="descripcion" id="descripcionProduct" value="${producto.descripcion}" required>
+                    <input type="text" name="descripcion" id="descripcionProduct" value="${producto.descripcion}" readonly>
                     
                     <label for="precioProduct">Precio</label>
-                    <input type="number" name="precio" id="precioProduct" value="${producto.precio}" required>
+                    <input type="number" name="precio" id="precioProduct" value="${producto.precio}" readonly>
 
                     <label for="stockProduct">stock</label>
-                    <input type="number" name="stock" id="stockProduct" value="${producto.stock}" required>
+                    <input type="number" name="stock" id="stockProduct" value="${producto.stock}" readonly>
 
                     <label for="imgProduct">Imagen</label>
-                    <input type="text" name="img" id="imagenProd" value="${producto.img}" required>
+                    <input type="text" name="img" id="imagenProd" value="${producto.img}" readonly>
 
                     <label for="categoriaProduct">Categoria</label>
-                    <select name="categoria" id="categoriaProduct" required>
+                    <select name="categoria" id="categoriaProduct" readonly>
                         <option value="ps4">PS4</option>
                         <option value="ps5">PS5</option>
+                    </select>
+
+                    <label for="estadoProduct">Estado</label>
+                    <select name="id_estado" id="estadoProduct"  required>
+                        <option value="1" ${producto.id_estado == 1 ? "selected" : ""}>Activo</option>
+                        <option value="2" ${producto.id_estado == 2 ? "selected" : ""}>Inactivo</option>
                     </select>
 
                     <input type="submit" value="Actualizar producto">
@@ -178,59 +136,50 @@
 
             updateForm_container.innerHTML = updateProduct;
 
-
             let updateProducts_form = document.getElementById("updateProducts-form");
-
-            updateProducts_form.addEventListener("submit", function(event) {
+            updateProducts_form.addEventListener("submit", async (event) => {
                 actualizarProducto(event);
             });
         }
 
-
-        // Enviamos los nuevos datos del formulario al servidor
         async function actualizarProducto(event) {
-
-            event.preventDefault(); // Prevenimos el envio por defecto del formulario
+            event.preventDefault(); // Evitamos el envio por defecto del formulario
 
             let formData = new FormData(event.target);
-
             let data = Object.fromEntries(formData.entries());
+
             console.table(data);
 
-            if(!data.nombre || !data.descripcion || !data.precio || !data.stock || !data.img || !data.categoria) {
-                alert("Todos los campos son obligatorios");
+            if(!data.id_estado) {
+                alert("Error: Debe seleccionar un estado para el producto");
                 return;
             }
 
-
             try {
-                let response = await fetch(`${url}/productos`, {
+                let response = await fetch(`${url}/productos/${data.id}`, {
                     method: "PUT",
                     headers: {
-                        "Content-type" : "application/json",
+                        "Content-Type": "application/json"
                     },
                     body: JSON.stringify(data)
                 });
 
-                if(response.ok) {
+                if (response.ok) {
                     console.log(response);
-
+                    
                     let result = await response.json();
-                    console.log(result.message);
+                    console.log("Producto actualizado: ", result.message);
                     alert(result.message);
-
-                    // Vaciamos si existiera la lista y el formulario de actualizacion del producto
-                    getId_lista.innerHTML = "";
-                    updateForm_container.innerHTML = "";
-
-                } else {
-                    let error = await response.json();
-                    console.log("Error: ", error.message)
+                    getId_lista.innerHTML = ""; // Limpiamos la lista de productos consultados
+                    updateForm_container.innerHTML = ""; // Limpiamos el formulario de actualización
                 }
-
+                else {
+                    let error = await response.json();
+                    throw new Error(`Error al actualizar el producto: ${error.message}`);
+                }
             } catch (error) {
-                console.log("Error al enviar los datos: ", error);
-                alert("Error al procesar la solicitud");
+                console.error("Error al actualizar el producto: ", error);
+                alert(`Error: ${error.message}`);
             }
         }
 

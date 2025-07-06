@@ -64,3 +64,10 @@ export const vistaEliminar = (req, res) => {
         about: "Buscar por ID, luego eliminar el producto",
     });
 }
+
+export const vistaModificarEstado = (req, res) => {
+    res.render("modificar-estado", {
+        title: "Modificar estado del producto",
+        about: "Buscar por ID, luego modificar el estado del producto",
+    });
+}

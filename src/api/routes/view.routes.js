@@ -6,7 +6,8 @@ import {
     vistaEliminar, 
     vistaFront, 
     // vistaIndex, 
-    vistaModificar 
+    vistaModificar, 
+    vistaModificarEstado
 } from "../controllers/view.controllers.js";
 
 const router = Router();
@@ -23,6 +24,9 @@ router.get("/crear", vistaCrear); // Vista para crear un nuevo producto
 
 router.get("/modificar", vistaModificar); // Vista para modificar un producto existente
 
+router.get("/modificar-estado", vistaModificarEstado); // Vista para modificar el estado de un producto
+
 router.get("/eliminar", vistaEliminar); // Vista para eliminar un producto
+
 
 export default router;
