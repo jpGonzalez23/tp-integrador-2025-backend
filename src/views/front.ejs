@@ -6,21 +6,6 @@
     <hr>
 
     <main id="contenedor-get">
-        <section class="seccion-productos">
-        <div class="titular">
-        <div class="filtros">
-        <p>Ordenar: </p>
-        </div>
-        </div>
-
-        <form>
-        <label for="orden">Ordenar por nombre:</label>
-        <select name="orden" id="orden" onchange="this.form.submit()">
-            <option value="az" <%= orden === 'az' ? 'selected' : '' %>>A-Z</option>
-            <option value="za" <%= orden === 'za' ? 'selected' : '' %>>Z-A</option>
-        </select>
-        </form>
-
         <div id="productos-container">
             <ul id="productos-lista">
   

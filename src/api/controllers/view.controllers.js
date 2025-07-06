@@ -2,30 +2,28 @@
 import Productos from "../models/productos.models.js";
 
 // controladores para las vistas
-export const vistaIndex = async (req, res) =>{
-    try {
-        const resultProductos = await Productos.selectAllProducts();
-        res.render("index", {
-            title: "Listado de productos",
-            productos: resultProductos[0],
-        });
-    } catch (error) {
-        console.error("Error al obtener los productos:", error);
-        res.status(500).json({
-            error: "Error al obtener los productos"
-        });        
-    }
-}
+// export const vistaIndex = async (req, res) =>{
+//     try {
+//         const resultProductos = await Productos.selectAllProducts();
+//         res.render("index", {
+//             title: "Listado de productos",
+//             productos: resultProductos[0],
+//         });
+//     } catch (error) {
+//         console.error("Error al obtener los productos:", error);
+//         res.status(500).json({
+//             error: "Error al obtener los productos"
+//         });        
+//     }
+// }
 
 // controlador para la vista de productos ordenados
 export const vistaFront = async (req, res) =>{
     try {
-        const orden = req.query.orden || "az";
-        const resultProductos = await Productos.selectAllProductsOrder(orden);
+        const resultProductos = await Productos.selectAllProducts();
         res.render("front", {
             title: "Listado de productos",
             productos: resultProductos[0],
-            orden
         });
     } catch (error) {
         console.error("Error al obtener los productos:", error);
@@ -59,6 +57,7 @@ export const vistaModificar = (req, res) => {
 }
 
 // controladores para las vistas de eliminar
+
 export const vistaEliminar = (req, res) => {
     res.render("eliminar", {
         title: "Eliminar producto",
