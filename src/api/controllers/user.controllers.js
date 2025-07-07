@@ -1,10 +1,10 @@
 // importaciones
-import Login from "../models/login.models.js";
+import User from "../models/usuario.models.js";
 
 // Get - Obtener todos los usuarios
 export const getAllUser = async (req, res) => {
     try {
-        const [result] = await Login.selecAllLogin();
+        const [result] = await User.selecAllUser();
 
         res.status(200).json({
             message: result.length === 0
@@ -31,7 +31,7 @@ export const getUserFromId = async (req, res) => {
             });
         }
 
-        const [result] = Login.selectLoginFromId(id_usuario);
+        const [result] =await User.selectUserFromId(id_usuario);
 
         res.status(200).json({
             message: result.length === 0
@@ -62,7 +62,7 @@ export const createUser = async (req, res) => {
             });
         }
 
-        const [result] = Login.insertLogin(nombre, apellido, email, password, id_estado, fecha_alta);
+        const [result] =await User.insertUser(nombre, apellido, email, password, id_estado, fecha_alta);
 
         res.status(201).json({
             message: "Usuario creado",
@@ -77,7 +77,7 @@ export const createUser = async (req, res) => {
 }
 
 // Put - Actualizar un usuario
-export const updateUser = async (req, res) => {
+export const modifyUser = async (req, res) => {
     try {
         let { id_usuario } = req.params;
         let { nombre, apellido, email, password } = req.body;
@@ -88,7 +88,7 @@ export const updateUser = async (req, res) => {
             });
         }
 
-        const [result] = Login.updateLogin(id_usuario, nombre, apellido, email, password);
+        const [result] = await User.updateUser(id_usuario, nombre, apellido, email, password);
 
         res.status(200).json({
             message: "Usuario actualizado con exito",
@@ -104,7 +104,7 @@ export const updateUser = async (req, res) => {
 }
 
 // Put - Actualizar el estado de un usuario
-export const updateStateUser = async (req, res) => {
+export const modifyUserStatus = async (req, res) => {
     try {
         let { id_usuario, id_estado } = req.params;
 
@@ -119,7 +119,7 @@ export const updateStateUser = async (req, res) => {
 
         let fecha_baja = new Date();
 
-        const [result] = Login.updateLoginState(idUsuario, idEstado, fecha_baja);
+        const [result] =await User.updateUserState(idUsuario, idEstado, fecha_baja);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
@@ -151,7 +151,7 @@ export const removeUser = async (req, res) => {
             })
         }
 
-        const [result] = Login.deleteLogin(id_usuario);
+        const [result] =await User.deleteUser(id_usuario);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({

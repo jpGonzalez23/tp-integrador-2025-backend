@@ -4,7 +4,7 @@
 import express from "express";
 import cors from "cors";
 import enviroments from "./src/api/config/enviroments.js";
-import { loginRoutes, productosRoutes, carritoRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { userRoutes, productosRoutes, carritoRoutes, viewRoutes } from "./src/api/routes/index.js";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { __dirname, join } from "./src/api/utils/index.js";
 
@@ -44,7 +44,7 @@ app.use("/dashboard", viewRoutes);
 /**
  * Login
  */
-app.use("/api/login", loginRoutes);
+app.use("/api/user", userRoutes);
 
 /***
  * Productos
