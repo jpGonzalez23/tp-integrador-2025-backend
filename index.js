@@ -4,7 +4,7 @@
 import express from "express";
 import cors from "cors";
 import enviroments from "./src/api/config/enviroments.js";
-import { userRoutes, productosRoutes, carritoRoutes, viewRoutes } from "./src/api/routes/index.js";
+import { userRoutes, productosRoutes, carritoRoutes, viewRoutes, authRoutes } from "./src/api/routes/index.js";
 import { loggerUrl } from "./src/api/middlewares/middlewares.js";
 import { __dirname, join } from "./src/api/utils/index.js";
 
@@ -42,9 +42,15 @@ app.get("/", (req, res) => {
 app.use("/dashboard", viewRoutes);
 
 /**
- * Login
+ * Usuarios
  */
 app.use("/api/user", userRoutes);
+
+/**
+ * Login
+ */
+
+app.use("/login", authRoutes)
 
 /***
  * Productos

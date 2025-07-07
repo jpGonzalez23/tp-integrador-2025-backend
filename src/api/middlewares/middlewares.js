@@ -18,6 +18,16 @@ const validateId = (req, res, next) => {
     next();
 }
 
+export const isAdmin = (req, res, next) => {
+    if (req.session?.user?.rol === "administrador") {
+        return next();  // Permite el acceso si el usuario es admin
+    }
+
+    return res.status(403).json({
+        message: "Acceso denegado. No sos administrador"
+    });
+}
+
 // Exportamos los middlewares
 export {
     loggerUrl,

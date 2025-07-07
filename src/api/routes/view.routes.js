@@ -4,18 +4,21 @@ import {
     vistaConsulta, 
     vistaCrear, 
     vistaEliminar, 
-    vistaFront, 
-    // vistaIndex, 
+    vistaFront,  
+    vistaLogin,  
     vistaModificar, 
     vistaModificarEstado
-} from "../controllers/view.controllers.js";
+} from "../controllers/view.controller.js";
+
+import { isAdmin } from "../middlewares/middlewares.js";
 
 const router = Router();
 
 
 // router.get("/ ", vistaIndex);
 
-// Rutas para manejar las vistas
+router.get("/login", vistaLogin); // Vista de login
+
 router.get("/", vistaFront); // Vista principal con productos
 
 router.get("/consultar", vistaConsulta); // Vista para consultar productos por ID

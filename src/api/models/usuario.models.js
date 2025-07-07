@@ -37,6 +37,11 @@ const deleteUser = async (id_user) => {
     return await connection.query(sql, [id_user]);
 }
 
+const findUserByEmail = async (email) => {
+    let sql = "SELECT * FROM usuarios WHERE email = ?";
+    return await connection.query(sql, [email]);
+}
+
 // Exportar las funciones
 export default {
     selecAllUser,
@@ -44,5 +49,6 @@ export default {
     insertUser,
     updateUser,
     updateUserState,
-    deleteUser
+    deleteUser,
+    findUserByEmail
 }

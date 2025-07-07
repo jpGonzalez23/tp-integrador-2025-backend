@@ -17,8 +17,22 @@ import Productos from "../models/productos.models.js";
 //     }
 // }
 
+export const vistaLogin = (req, res) => {
+    try {
+        res.render("login", {
+            title: "Login",
+            about: "Iniciar sesión para acceder al sistema"
+        })
+    } catch (error) {
+        console.error("Error al renderizar la vista de login: ", error);
+        res.status(500).json({
+            error: "Error al renderizar la vista de login"
+        });
+    }
+}
+
 // controlador para la vista de productos ordenados
-export const vistaFront = async (req, res) =>{
+export const vistaFront = async (req, res) => {
     try {
         const resultProductos = await Productos.selectAllProducts();
         res.render("front", {
@@ -29,7 +43,7 @@ export const vistaFront = async (req, res) =>{
         console.error("Error al obtener los productos:", error);
         res.status(500).json({
             error: "Error al obtener los productos"
-        });        
+        });
     }
 }
 

@@ -5,7 +5,7 @@ import {
     cerrarCarrito, 
     crearCarrito, 
     obtenerCarrito 
-} from "../controllers/carrito.controllers.js";
+} from "../controllers/carrito.controller.js";
 
 const router = Router(); // Rutas para manejar el carrito de compras
 

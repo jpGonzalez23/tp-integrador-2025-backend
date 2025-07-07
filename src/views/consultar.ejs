@@ -19,6 +19,8 @@
 
         <div id="getId-container">
             <ul id="getId-list">
+                <!-- Aqui se mostrara el producto consultado -->
+                <!-- Si no hay producto, se mostrara un mensaje de error -->
             </ul>
         </div>
     </main>
@@ -75,9 +77,13 @@
                 console.log(producto); 
 
                 let htmlProducto = `
-                    <li id="producto-encontrado" class="li-listados productos-listados">
+                    <li class="li-listados productos-listados">
                         <img src="${producto.img}" alt="${producto.nombre}" class="img-listados">
-                        <p>Nombre: ${producto.nombre} / <strong>Precio: ${producto.precio}$</strong></p>
+                        <h2><%= "${producto.nombre}" %></h2>
+                        <p><strong>Descripcion: </strong><%= "${producto.descripcion}" %></p>
+                        <p><strong>Categoria: </strong><%="${ producto.categoria}" %></p>
+                        <p><strong>Precio: </strong>$<%=  "${producto.precio}" %></p>
+                        <p><strong>Estado: </strong><%= "${producto.id_estado}" === 1 ? "activo" : "Inactivo" %></p>
                     </li>
                 `;
 

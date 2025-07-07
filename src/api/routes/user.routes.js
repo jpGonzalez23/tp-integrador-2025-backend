@@ -1,6 +1,13 @@
 // Importaciones
 import { Router } from "express";
-import { createUser, getAllUser, getUserFromId, modifyUser, modifyUserStatus, removeUser } from "../controllers/user.controllers.js";
+import { 
+    createUser, 
+    getAllUser, 
+    getUserFromId, 
+    modifyUser, 
+    modifyUserStatus, 
+    removeUser 
+} from "../controllers/user.controller.js";
 import { validateId } from "../middlewares/middlewares.js";
 
 const router = Router();
