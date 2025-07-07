@@ -1,0 +1,24 @@
+<%- include("partials/head.ejs") %>
+<%- include("partials/nav.ejs") %>
+
+    <hr>
+        <h1><%= title %></h1>
+        <p><%= about %></p>
+    <hr>
+    <main>
+        <section id="ventas-container">
+            <ul id="ventas-lista">
+                <% ventas.forEach(venta => { %>
+                    <li class="li-listados ventas-listados">
+                        <h2>Venta ID: <%= venta.id %></h2>
+                        <p><strong>Fecha: </strong><%= venta.fecha %></p>
+                        <p><strong>Total: </strong>$<%= venta.total %></p>
+                        <p><strong>Estado: </strong><%= venta.estado === 1 ? "Completada" : "Pendiente" %></p>
+                    </li>
+                <% }) %>
+            </ul>
+        </section>
+    </main>
+
+
+<%- include("partials/footer.ejs") %>

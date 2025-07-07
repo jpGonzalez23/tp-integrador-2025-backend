@@ -7,7 +7,8 @@ import {
     vistaFront,  
     vistaLogin,  
     vistaModificar, 
-    vistaModificarEstado
+    vistaModificarEstado,
+    vistaVentas
 } from "../controllers/view.controller.js";
 
 import { isAdmin } from "../middlewares/middlewares.js";
@@ -30,6 +31,8 @@ router.get("/modificar", vistaModificar); // Vista para modificar un producto ex
 router.get("/modificar-estado", vistaModificarEstado); // Vista para modificar el estado de un producto
 
 router.get("/eliminar", vistaEliminar); // Vista para eliminar un producto
+
+router.get("/ventas", vistaVentas); // Vista para ver las ventas
 
 
 export default router;

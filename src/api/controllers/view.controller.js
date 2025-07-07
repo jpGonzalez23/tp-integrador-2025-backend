@@ -1,27 +1,31 @@
 // importaciones
 import Productos from "../models/productos.models.js";
+import Ventas from "../models/ventas.models.js";
 
-// controladores para las vistas
-// export const vistaIndex = async (req, res) =>{
-//     try {
-//         const resultProductos = await Productos.selectAllProducts();
-//         res.render("index", {
-//             title: "Listado de productos",
-//             productos: resultProductos[0],
-//         });
-//     } catch (error) {
-//         console.error("Error al obtener los productos:", error);
-//         res.status(500).json({
-//             error: "Error al obtener los productos"
-//         });        
-//     }
-// }
-
-export const vistaLogin = (req, res) => {
+export const vistaVentas = async (req, res) => {
     try {
+        const resultVentas = await Ventas.selectAllVentas();
+        res.render("ventas", {
+            title: "Ventas",
+            about: "Vista de ventas del sistema",
+            ventas: resultVentas[0] // Pasar las ventas a la vista
+        });
+    } catch (error) {
+        error("Error al renderizar la vista de ventas: ", error);
+        res.status(500).json({
+            error: "Error al renderizar la vista de ventas"
+        });
+    }
+}
+
+export const vistaLogin = async (req, res) => {
+    try {
+        const resultVentas = await Ventas.selectAllVentas();
+        console.log("Ventas obtenidas: ", resultVentas[0]);
         res.render("login", {
             title: "Login",
-            about: "Iniciar sesión para acceder al sistema"
+            about: "Iniciar sesión para acceder al sistema",
+            ventas: resultVentas[0] // Pasar las ventas a la vista
         })
     } catch (error) {
         console.error("Error al renderizar la vista de login: ", error);
