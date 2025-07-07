@@ -31,7 +31,7 @@ export const getUserFromId = async (req, res) => {
             });
         }
 
-        const [result] =await User.selectUserFromId(id_usuario);
+        const [result] = await User.selectUserFromId(id_usuario);
 
         res.status(200).json({
             message: result.length === 0
@@ -52,7 +52,7 @@ export const getUserFromId = async (req, res) => {
 export const createUser = async (req, res) => {
     try {
 
-        let { nombre, apellido, email, password } = req.body;
+        let { nombre, apellido, email, password, id_rol } = req.body;
         let fecha_alta = new Date();
         let id_estado = 1;
 
@@ -62,7 +62,7 @@ export const createUser = async (req, res) => {
             });
         }
 
-        const [result] =await User.insertUser(nombre, apellido, email, password, id_estado, fecha_alta);
+        const [result] = await User.insertUser(nombre, apellido, email, password, id_estado, id_rol, fecha_alta);
 
         res.status(201).json({
             message: "Usuario creado",
@@ -119,7 +119,7 @@ export const modifyUserStatus = async (req, res) => {
 
         let fecha_baja = new Date();
 
-        const [result] =await User.updateUserState(idUsuario, idEstado, fecha_baja);
+        const [result] = await User.updateUserState(idUsuario, idEstado, fecha_baja);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({
@@ -151,7 +151,7 @@ export const removeUser = async (req, res) => {
             })
         }
 
-        const [result] =await User.deleteUser(id_usuario);
+        const [result] = await User.deleteUser(id_usuario);
 
         if (result.affectedRows === 0) {
             return res.status(404).json({

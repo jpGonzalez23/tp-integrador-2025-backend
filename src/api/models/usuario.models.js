@@ -14,9 +14,9 @@ const selectUserFromId = async (id) => {
 }
 
 // promise para insertar un user
-const insertUser = async (name, username, email, password, id_estado, fecha_alta) => {
-    let sql = `INSERT INTO usuarios (nombre, apellido, email, password, id_estado, fecha_alta) VALUES (?, ?, ?, ?, ?, ?)`;
-    return await connection.query(sql, [name, username, email, password, id_estado, fecha_alta]);
+const insertUser = async (name, username, email, password, id_estado, id_rol, fecha_alta) => {
+    let sql = `INSERT INTO usuarios (nombre, apellido, email, password, id_estado, id_rol, fecha_alta) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    return await connection.query(sql, [name, username, email, password, id_estado, id_rol, fecha_alta]);
 }
 
 // promise para actualizar un user
