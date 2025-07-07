@@ -45,28 +45,18 @@
             event.preventDefault(); // Evitamos el envio por defecto del formulario
 
             try {
-
-                ///////////////////
-                // Optimizacion 1: Mostrar el estado de carga
-                getId_lista.innerHTML = "<p>Cargando usuario...</p>";
-
-
                 // Queremos extraer la informacion de los campos del formulario!
                 // Este es un objeto JavaScript especifico de informacion de formularios HTML
                 let formData = new FormData(event.target); 
 
                 // Transformamos el objeto FormData en un objeto JS normal
                 let data = Object.fromEntries(formData.entries());
-                console.log(data);
-
-                // Ahora que obtenemos el objeto con el campo de idProd, vamos a guardarlo en una variable
-                
+                console.log(data);                
 
                 ///////////////////
                 // Optimizacion 2: Eliminamos posibles espacios con .trim()
                 let idProd = data.idProd.trim(); 
                 console.log(idProd);
-
 
                 ///////////////////
                 // Optimizacion 3: Validacion basica
@@ -82,18 +72,14 @@
                     throw new Error(`Error ${response.status}: ${response.statusText}`); // Error 404: Not Found
                 }
 
-
                 let datos = await response.json();
                 console.log(datos);
-
 
                 ///////////////////
                 // Optimizacion 5: Verificamos si existen productos en la respuesta
                 if(!datos.payload || datos.payload.length === 0) {
                     throw new Error("No se encontro el producto solicitado")
                 }
-                
-
 
                 // Guardamos nuestro producto en una variable
                 let producto = datos.payload[0];
@@ -130,9 +116,6 @@
                 getId_lista.innerHTML = `<p>${error.message}</p>`
             }
         });
-
-
-
         //////////
         // PUT //
 
@@ -186,7 +169,6 @@
             });
         }
 
-
         // Enviamos los nuevos datos del formulario al servidor
         async function actualizarProducto(event) {
 
@@ -201,7 +183,6 @@
                 alert("Todos los campos son obligatorios");
                 return;
             }
-
 
             try {
                 let response = await fetch(`${url}/productos`, {

@@ -38,8 +38,6 @@
 
     </main>
 
-
-    <!-- Por tema legibilidad, incorporamos aca el JavaScript -->
     <script>
         const url = "http://localhost:3000/api";
         let altaProducts_form = document.getElementById("altaProducts-form");
@@ -51,8 +49,8 @@
             let formData = new FormData(event.target); // Obtenemos la data del formulario
 
             let data = Object.fromEntries(formData.entries()); // Convertimos a objeto JS nuestro objeto formulario
-            console.log(data); // {categoria: 'food', image: 'imagen empanada', name: 'empanada', price: '60'}
-
+            console.log(data); 
+            
             // Validamos datos previamente en el cliente
             if(!data.nombre || !data.descripcion || !data.precio || !data.stock || !data.img || !data.categoria) {
                 alert("Todos los campos son obligatorios!");

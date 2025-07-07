@@ -24,7 +24,6 @@
         </div>
     </main>
 
-    <!-- Por tema legibilidad, incorporamos aca el JavaScript -->
     <script>
         const url = "http://localhost:3000/api";
         let getProduct_form = document.getElementById("getProduct-form");
@@ -35,28 +34,18 @@
             event.preventDefault(); // Evitamos el envio por defecto del formulario
 
             try {
-
-                ///////////////////
-                // Optimizacion 1: Mostrar el estado de carga
-                getId_lista.innerHTML = "<p>Cargando producto...</p>";
-
-
                 // Queremos extraer la informacion de los campos del formulario!
                 // Este es un objeto JavaScript especifico de informacion de formularios HTML
                 let formData = new FormData(event.target); 
 
                 // Transformamos el objeto FormData en un objeto JS normal
                 let data = Object.fromEntries(formData.entries());
-                console.log(data);
-
-                // Ahora que obtenemos el objeto con el campo de idProd, vamos a guardarlo en una variable
-                
+                console.log(data);                
 
                 ///////////////////
                 // Optimizacion 2: Eliminamos posibles espacios con .trim()
                 let idProd = data.idProd.trim(); 
                 console.log(idProd);
-
 
                 ///////////////////
                 // Optimizacion 3: Validacion basica
@@ -72,10 +61,8 @@
                     throw new Error(`Error ${response.status}: ${response.statusText}`); // Error 404: Not Found
                 }
 
-
                 let datos = await response.json();
                 console.log(datos);
-
 
                 ///////////////////
                 // Optimizacion 5: Verificamos si existen productos en la respuesta
@@ -83,7 +70,6 @@
                     throw new Error("No se encontro el producto solicitado")
                 }
                 
-
                 let producto = datos.payload[0];
 
                 mostrarProducto(producto);
