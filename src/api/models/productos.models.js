@@ -2,7 +2,7 @@ import connection from "../database/db.js";
 
 // promise para seleccionar todos los productos
 const selectAllProducts = async () => {
-    let sql = `SELECT * FROM productos WHERE id_estado = 1`
+    let sql = `SELECT * FROM productos`
     return await connection.query(sql);
 }
 

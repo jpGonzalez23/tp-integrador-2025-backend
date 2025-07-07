@@ -14,10 +14,11 @@
                     <li class="li-listados productos-listados">
                         <img src=" <%= prod.img %> " alt=" <%= prod.nombre %> " class="img-listados">
                         <ul>
-                            <h3><%= prod.nombre %></h3>
-                            <p><%= prod.descripcion %></p>
+                            <h2><%= prod.nombre %></h2>
+                            <p><strong>Descripcion: </strong><%= prod.descripcion %></p>
                             <p><strong>Categoria: </strong><%= prod.categoria %></p>
-                            <p><strong>$<%= prod.precio %></strong></p>
+                            <p><strong>Precio: </strong>$<%= prod.precio %></p>
+                            <p><strong>Estado: </strong><%= prod.id_estado === 1 ? "activo" : "Inactivo" %></p>
                         </ul>
                     </li> 
     
