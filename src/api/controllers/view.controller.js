@@ -20,12 +20,9 @@ export const vistaVentas = async (req, res) => {
 
 export const vistaLogin = async (req, res) => {
     try {
-        const resultVentas = await Ventas.selectAllVentas();
-        console.log("Ventas obtenidas: ", resultVentas[0]);
         res.render("login", {
             title: "Login",
             about: "Iniciar sesión para acceder al sistema",
-            ventas: resultVentas[0] // Pasar las ventas a la vista
         })
     } catch (error) {
         console.error("Error al renderizar la vista de login: ", error);
@@ -63,6 +60,7 @@ export const vistaConsulta = (req, res) => {
 export const vistaCrear = (req, res) => {
     res.render("crear", {
         title: "Crear producto",
+        about: "Ingrese los datos del nuevo producto",
     });
 }
 
