@@ -18,11 +18,9 @@ const router = Router();
 
 // router.get("/ ", vistaIndex);
 
-
 router.get("/login", vistaLogin); // Vista de login
 
 router.get("/", vistaFront); // Vista principal con productos
-
 
 router.get("/consultar", vistaConsulta); // Vista para consultar productos por ID
 
@@ -35,6 +33,5 @@ router.get("/modificar-estado", vistaModificarEstado); // Vista para modificar e
 router.get("/eliminar", vistaEliminar); // Vista para eliminar un producto
 
 router.get("/ventas", vistaVentas); // Vista para ver las ventas
-
 
 export default router;

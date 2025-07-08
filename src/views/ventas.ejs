@@ -8,14 +8,19 @@
     <main>
         <section id="ventas-container">
             <ul id="ventas-lista">
-                <% ventas.forEach(venta => { %>
-                    <li class="li-listados ventas-listados">
-                        <h2>Venta ID: <%= venta.id %></h2>
-                        <p><strong>Fecha: </strong><%= venta.fecha %></p>
-                        <p><strong>Total: </strong>$<%= venta.total %></p>
-                        <p><strong>Estado: </strong><%= venta.estado === 1 ? "Completada" : "Pendiente" %></p>
-                    </li>
-                <% }) %>
+                <% if(ventas && ventas.length > 0) { %>
+                    <% ventas.forEach(venta => { %>
+                        <li class="li-listados ventas-listados">
+                            <h2>Venta ID: <%= venta.id_ventas %></h2>
+                            <p><strong>Usuario: </strong><%= venta.usuario %></p>
+                            <p><strong>Fecha: </strong><%= venta.fecha_creacion.toLocaleString() %></p>
+                            <p><strong>Total: </strong>$<%= venta.total %></p>
+                        </li>
+                    <% }) %>
+                <% } else { %>
+                    <p>No hay ventas registradas.</p>
+                <% } %>
+
             </ul>
         </section>
     </main>
