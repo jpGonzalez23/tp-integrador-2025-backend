@@ -1,59 +1,96 @@
-/* /////////////
-    Estilos globales
-///////////// */
+/* ===============================
+    Variables Globales
+================================== */
+:root {
+    --primary-color: #0d6efd;
+    --text-color: #212529;
+    --border-radius: 5px;
+    --spacing: 16px;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --font-family: 'Inter', sans-serif;
+}
+
+/* ===============================
+    Reset + Globales
+================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-family);
+    color: var(--text-color);
+    /* background-color: #fff; */
+    line-height: 1.6;
+    padding: var(--spacing);
+}
+
 h1, h2 {
     text-align: center;
+    margin-bottom: var(--spacing);
 }
 
 .titulo {
     text-align: center;
+    margin: var(--spacing) 0;
 }
-
-
-/* /////////////
-    Header
-///////////// */
 
 p {
     text-align: center;
+    color: #fff;
+    margin-bottom: var(--spacing);
 }
 
+/* ===============================
+    Header
+================================== */
 header {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--spacing);
 }
 
 .img-logo {
-    width: 70px; 
+    width: 70px;
+    margin-bottom: var(--spacing);
 }
 
 #logo-nav {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    width: 100%;
 }
 
 #listado-nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: var(--spacing);
+    list-style: none;
+    padding: 0;
 }
 
 #listado-nav li {
     list-style-type: none;
 }
 
-
-/* /////////////
-    index
-///////////// */
+/* ===============================
+    Productos - Index
+================================== */
 .li-listados {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     font-size: 16px;
-    padding-right: 10px;
-    border-radius: 3px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding: var(--spacing);
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    margin-bottom: var(--spacing);
+    box-shadow: var(--shadow);
+    background-color: var(--secondary-color);
 }
 
 .productos-listados {
@@ -62,68 +99,140 @@ header {
 
 .img-listados {
     width: 200px;
+    object-fit: cover;
+    border-radius: var(--border-radius);
 }
 
 #producto-encontrado {
-    border-top: 2px solid;
-    border-radius: 0px;
+    border-top: 2px solid var(--primary-color);
 }
-
 
 /* ===============================
-        LISTADOS DINAMICOS
+    Listados dinámicos
 ================================== */
-
 .li-listados_boton {
     width: 25%;
-}
-
-.li-listados_datos p, .listados_boton {
-    margin: 0 !important;
+    display: flex;
+    justify-content: flex-end;
 }
 
 .li-listados_datos {
     display: flex;
-    justify-content: space-around;
-    width: 70%;
+    justify-content: space-between;
     align-items: center;
+    width: 70%;
+    gap: var(--spacing);
 }
 
+.li-listados_datos p,
+.listados_boton {
+    margin: 0;
+}
 
 #updateForm-container {
-    width: 50%;
-    margin: 0 auto;
-    margin-top: 60px;
+    width: 100%;
+    max-width: 600px;
+    margin: 60px auto 0;
 }
 
 /* ===============================
-              FRONT
+    FRONT
 ================================== */
-
 .front ul#productos-lista {
     display: flex;
-    margin: 0;
-    padding: 0;
-    flex-direction: row;
     flex-wrap: wrap;
+    gap: var(--spacing);
+    padding: 0;
+    justify-content: center;
 }
 
-.front .li-listados{
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    padding-right: 10px;
-    border-radius: 3px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.front .li-listados {
     flex-direction: column;
-    width: calc(33.333% - 22px);
-    border: solid 1px;
-    box-sizing: border-box;
-    margin: 10px;
-    padding: 30px 10px 10px;
+    align-items: center;
+    width: calc(33.333% - 20px);
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--shadow);
+    background-color: var(--secondary-color);
 }
 
-.front .li-listados h3{
-    text-align:center;
+.front .li-listados h3 {
+    margin-top: 10px;
+}
+
+/* ===============================
+    Login
+================================== */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing);
+}
+
+#login-form {
+    width: 100%;
+    max-width: 400px;
+    padding: var(--spacing);
+    background-color: var(--secondary-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+#login-form label {
+    display: block;
+    color: #fff;
+    margin-top: var(--spacing);
+    font-weight: bold;
+}
+
+#login-form input {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: var(--border-radius);
+}
+
+#login-form button {
+    margin-top: var(--spacing);
+    width: 100%;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+#login-form button:hover {
+    background-color: #0b5ed7;
+}
+
+/* ===============================
+    Responsive
+================================== */
+@media (max-width: 768px) {
+    .front .li-listados {
+        width: 100%;
+    }
+
+    #listado-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .li-listados_datos {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .li-listados_boton {
+        justify-content: center;
+        width: 100%;
+        margin-top: 10px;
+    }
 }

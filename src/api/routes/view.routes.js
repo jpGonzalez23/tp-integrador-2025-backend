@@ -1,12 +1,12 @@
 // Importaciones
 import { Router } from "express";
-import { 
-    vistaConsulta, 
-    vistaCrear, 
-    vistaEliminar, 
-    vistaFront,  
-    vistaLogin,  
-    vistaModificar, 
+import {
+    vistaConsulta,
+    vistaCrear,
+    vistaEliminar,
+    vistaFront,
+    vistaLogin,
+    vistaModificar,
     vistaModificarEstado,
     vistaVentas
 } from "../controllers/view.controller.js";
@@ -18,9 +18,11 @@ const router = Router();
 
 // router.get("/ ", vistaIndex);
 
+
 router.get("/login", vistaLogin); // Vista de login
 
 router.get("/", vistaFront); // Vista principal con productos
+
 
 router.get("/consultar", vistaConsulta); // Vista para consultar productos por ID
 

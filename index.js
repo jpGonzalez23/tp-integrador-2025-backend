@@ -46,16 +46,15 @@ app.use("/dashboard", viewRoutes);
  */
 app.use("/api/user", userRoutes);
 
-/**
- * Login
- */
-
-app.use("/login", authRoutes)
-
 /***
  * Productos
  */
 app.use("/api/productos", productosRoutes);
+
+/**
+ * Autenticación login
+ */
+app.use("/api/login", authRoutes);
 
 /**
  * Carrito
@@ -68,3 +67,4 @@ app.use("/api/carrito", carritoRoutes);
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+

@@ -19,7 +19,7 @@ const validateId = (req, res, next) => {
 }
 
 export const isAdmin = (req, res, next) => {
-    if (req.session?.user?.rol === "administrador") {
+    if (req.session?.user?.rol === "administrador" || req.session?.user?.id_rol === 1) {
         return next();  // Permite el acceso si el usuario es admin
     }
 

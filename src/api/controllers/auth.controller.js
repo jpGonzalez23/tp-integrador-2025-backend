@@ -1,10 +1,10 @@
 import User from "../models/usuario.models.js";
 
-export const loginUser = async (req, res) =>{
+export const loginUser = async (req, res) => {
     try {
-        let {email, password } = req.body;
+        let { email, password } = req.body;
 
-        if (!email || !password)  {
+        if (!email || !password) {
             return res.status(400).json({
                 error: "Faltan campos obligatorios"
             });
@@ -20,7 +20,7 @@ export const loginUser = async (req, res) =>{
 
         const user = result[0];
 
-        if( user.password !== password) {
+        if (user.password !== password) {
             return res.status(401).json({
                 error: "Contraseña incorrecta"
             });
@@ -32,7 +32,17 @@ export const loginUser = async (req, res) =>{
         //     id_rol: user.id_rol
         // }
 
-        return res.redirect("/dashboard");
+
+        res.status(200).json({
+            message: "Usuario autenticado correctamente",
+            payload: {
+                id: user.id_usuario,
+                email: user.email,
+                id_rol: user.id_rol === 1 ? "administrador" : "cliente"
+            }
+        });
+        // return res.redirect("/dashboard");
+
 
     } catch (error) {
         res.status(500).json({
