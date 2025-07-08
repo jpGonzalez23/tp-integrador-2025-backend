@@ -1,5 +1,7 @@
+// Importaciones
 import User from "../models/usuario.models.js";
 
+// POST - para crear logear un usuario
 export const loginUser = async (req, res) => {
     try {
         let { email, password } = req.body;
@@ -26,13 +28,6 @@ export const loginUser = async (req, res) => {
             });
         }
 
-        // req.session.user = {
-        //     id: user.id_usuario,
-        //     email: user.email,
-        //     id_rol: user.id_rol
-        // }
-
-
         res.status(200).json({
             message: "Usuario autenticado correctamente",
             payload: {
@@ -41,8 +36,6 @@ export const loginUser = async (req, res) => {
                 id_rol: user.id_rol === 1 ? "administrador" : "cliente"
             }
         });
-        // return res.redirect("/dashboard");
-
 
     } catch (error) {
         res.status(500).json({
