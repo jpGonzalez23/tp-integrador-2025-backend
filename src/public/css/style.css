@@ -3,6 +3,7 @@
 ================================== */
 :root {
     --primary-color: #0d6efd;
+    --secondary-color: #f8f9fa;
     --text-color: #212529;
     --border-radius: 5px;
     --spacing: 16px;
@@ -41,6 +42,10 @@ p {
     text-align: center;
     color: #fff;
     margin-bottom: var(--spacing);
+}
+
+label {
+    color: #fff;
 }
 
 /* ===============================
@@ -90,7 +95,7 @@ header {
     border-radius: var(--border-radius);
     margin-bottom: var(--spacing);
     box-shadow: var(--shadow);
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
 }
 
 .productos-listados {
@@ -155,7 +160,7 @@ header {
     border-radius: var(--border-radius);
     text-align: center;
     box-shadow: var(--shadow);
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
 }
 
 .front .li-listados h3 {
@@ -176,14 +181,13 @@ header {
     width: 100%;
     max-width: 400px;
     padding: var(--spacing);
-    background-color: var(--secondary-color);
+    /* background-color: var(--secondary-color); */
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
 }
 
 #login-form label {
     display: block;
-    color: #fff;
     margin-top: var(--spacing);
     font-weight: bold;
 }
