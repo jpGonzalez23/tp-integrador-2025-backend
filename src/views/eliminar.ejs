@@ -8,10 +8,8 @@
 
     <main id="contenedor-get">
         <div id="productos-container" class="crudForm-container">
-            <h2>Consultar producto</h2>
-
             <form id="getProduct-form">
-                <label for="idProd">Id producto</label>
+                <label for="idProd">ID producto</label>
                 <input type="number" name="idProd" id="idProd" required>
 
                 <input type="submit" value="Consultar producto">
@@ -53,7 +51,7 @@
                     throw new Error(`Error en el envio de datos del formulario`);
                 }
 
-                let response = await fetch(`${url}/products/${idProd}`);
+                let response = await fetch(`${url}/productos/${idProd}`);
 
                 ///////////////////
                 // Optimizacion 4: Manejamos el error en una posible respuesta no existosa
@@ -88,7 +86,7 @@
             let htmlProducto = `
                     <li class="li-listados productos-listados">
                         <div class="li-listados_datos">
-                            <p>Id: ${producto.id} / Nombre: ${producto.nombre} / <strong>Precio: $${producto.precio}</strong></p>
+                            <p>Id: ${producto.id_producto} / Nombre: ${producto.nombre} / <strong>Precio: $${producto.precio}</strong></p>
                             <img src="${producto.img}" alt="${producto.nombre}" class="img-listados">
                         </div>
                         <div class="li-listados_boton">
@@ -118,7 +116,7 @@
 
         async function eliminarProducto(id) {
             try {
-                let response = await fetch(`${url}/products/${id}`, {
+                let response = await fetch(`${url}/productos/${id}`, {
                     method: "DELETE"
                 });
 
